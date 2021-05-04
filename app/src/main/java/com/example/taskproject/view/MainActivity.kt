@@ -3,6 +3,7 @@ package com.example.taskproject.view
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -50,9 +51,13 @@ class MainActivity : AppCompatActivity() {
 
         personViewModel.getPersonDetails(context)!!.observe(this, Observer {
             val size = it.size
-            Toast.makeText(context, "$size values inserted" , Toast.LENGTH_SHORT).show()
-            personAdapter = PersonAdapter(context,it)
-            rvPerson.adapter = personAdapter
+
+            Handler().postDelayed(Runnable {
+                Toast.makeText(context, "$size values inserted" , Toast.LENGTH_SHORT).show()
+                personAdapter = PersonAdapter(context,it)
+                rvPerson.adapter = personAdapter
+            },1500)
+
         })
     }
 
